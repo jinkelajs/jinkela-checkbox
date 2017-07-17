@@ -1,0 +1,11 @@
+<meta charset="utf-8" />
+<script src="https://unpkg.com/jinkela@1.2.19/umd.js"></script>
+<script src="index.js"></script>
+<script>
+addEventListener('load', () => {
+  new Checkbox({ text: 'hehe' }).to(document.body);
+  new Checkbox({ text: 'hehe', checked: true }).to(document.body);
+  new Checkbox({ text: 'hehe', readonly: true }).to(document.body);
+  new Checkbox({ text: 'hehe', readonly: true, checked: true }).to(document.body);
+});
+</script>
