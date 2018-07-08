@@ -1,0 +1,94 @@
+<meta charset="utf-8" />
+<script src="/tester.js"></script>
+<script src="//cdn.jsdelivr.net/npm/jinkela@1.2.22/umd.min.js"></script>
+<script src="/index.js"></script>
+<script>
+addEventListener('load', () => {
+
+  // normal
+  {
+    let a = new Checkbox({ text: 'hehe' }).to(document.body);
+    Tester.assert(a.element.offsetWidth > 0, 'must visible');
+    Tester.assert(a.element.textContent.trim() === 'hehe', 'text must be hehe');
+    Tester.assert(!a.element.querySelector('.active'), 'active must not be included');
+    Tester.assert(a.checked === false, 'a.checked must be false');
+    a.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(a.element.querySelector('.active'), 'active must be included');
+    Tester.assert(a.checked === true, 'a.checked must be true');
+    Tester.assert(a.readonly === false, 'a.readonly must be false');
+    a.readonly = true;
+    a.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(a.checked === true, 'a.checked must be true yet');
+  }
+
+  // component text
+  {
+    let text = new class extends Jinkela { get template() { return '<strong>hehe</strong>' } };
+    let a = new Checkbox({ text }).to(document.body);
+    Tester.assert(a.element.offsetWidth > 0, 'must visible');
+    Tester.assert(a.element.textContent.trim() === 'hehe', 'text must be hehe');
+    Tester.assert(!a.element.querySelector('.active'), 'active must not be included');
+    Tester.assert(a.checked === false, 'a.checked must be false');
+    a.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(a.element.querySelector('.active'), 'active must be included');
+    Tester.assert(a.checked === true, 'a.checked must be true');
+    Tester.assert(a.readonly === false, 'a.readonly must be false');
+    a.readonly = true;
+    a.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(a.checked === true, 'a.checked must be true yet');
+  }
+
+  // defaults checked
+  {
+    let b = new Checkbox({ text: 'hehe', checked: true }).to(document.body);
+    Tester.assert(b.element.querySelector('.active'), 'active must be included');
+    Tester.assert(b.checked === true, 'b.checked must be true');
+    b.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(!b.element.querySelector('.active'), 'active must not be included');
+    Tester.assert(b.checked === false, 'b.checked must be false');
+    Tester.assert(b.readonly === false, 'b.readonly must be false');
+    b.readonly = true;
+    b.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(b.checked === false, 'b.checked must be false yet');
+  }
+
+  // readonly
+  {
+    let c = new Checkbox({ text: 'hehe', readonly: true }).to(document.body);
+    Tester.assert(c.element.offsetWidth > 0, 'must visible');
+    Tester.assert(c.element.textContent.trim() === 'hehe', 'text must be hehe');
+    Tester.assert(c.element.classList.contains('readonly'), 'c.readonly must not be included');
+    Tester.assert(c.checked === false, 'c.checked must be false');
+    c.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(c.checked === false, 'c.checked must be false yet');
+    Tester.assert(c.readonly, 'readonly must be true');
+    c.readonly = false;
+    Tester.assert(c.readonly === false, 'c.readonly must be false');
+    c.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(c.checked === true, 'c.checked must be true');
+  }
+
+  // readonly and defaults checked
+  {
+    let d = new Checkbox({ text: 'hehe', readonly: true, checked: true }).to(document.body);
+    Tester.assert(d.checked === true, 'd.checked must be true');
+    d.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(d.checked === true, 'd.checked must be true yet');
+    d.readonly = false;
+    d.element.dispatchEvent(new MouseEvent('click'));
+    Tester.assert(d.checked === false, 'd.checked must be false');
+  }
+
+  // change event
+  {
+    let e = new Checkbox({ text: 'hehe' }).to(document.body);
+    e.element.addEventListener('change', event => {
+      Tester.assert(event.bubbles === true, 'change event must be bubbles');
+      Tester.assert(e.checked === true, 'e.checked must be true');
+      Tester.feedback(true);
+    });
+    e.element.dispatchEvent(new MouseEvent('click'));
+  }
+
+});
+</script>

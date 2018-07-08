@@ -33,7 +33,7 @@ class Checkbox extends Jinkela { // eslint-disable-line no-unused-vars
     return `
       <span on-click="{click}">
         <span ref="box"></span>
-        <span>{text}</span>
+        <span><meta ref="text" /></span>
       </span>
     `;
   }
