@@ -1,0 +1,21 @@
+<meta charset="utf-8" />
+<script src="/tester.js"></script>
+<script src="jinkela.js"></script>
+<script src="/Checkbox.js"></script>
+<script>
+addEventListener('load', () => {
+
+  let b = new Checkbox({ text: 'hehe', checked: true }).to(document.body);
+  Tester.assert(b.element.querySelector('.active'), 'active must be included');
+  Tester.assert(b.checked === true, 'b.checked must be true');
+  b.element.dispatchEvent(new MouseEvent('click'));
+  Tester.assert(!b.element.querySelector('.active'), 'active must not be included');
+  Tester.assert(b.checked === false, 'b.checked must be false');
+  Tester.assert(b.readonly === false, 'b.readonly must be false');
+  b.readonly = true;
+  b.element.dispatchEvent(new MouseEvent('click'));
+  Tester.assert(b.checked === false, 'b.checked must be false yet');
+  Tester.feedback(true);
+
+});
+</script>

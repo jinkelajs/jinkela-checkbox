@@ -14,7 +14,7 @@ npm install jinkela-checkbox
   * `text` **String** The default text.
   * `readonly` **Boolean** The readonly flag.
 
-## Demo [Live](https://jinkelajs.github.io/jinkela-checkbox/example.html)
+## Demo [Live](https://jinkelajs.github.io/jinkela-checkbox/example/)
 
 ```html
 <meta charset="utf-8" />
