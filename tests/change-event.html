@@ -1,0 +1,17 @@
+<meta charset="utf-8" />
+<script src="/tester.js"></script>
+<script src="jinkela.js"></script>
+<script src="/Checkbox.js"></script>
+<script>
+addEventListener('load', () => {
+
+  let e = new Checkbox({ text: 'hehe' }).to(document.body);
+  e.element.addEventListener('change', event => {
+    Tester.assert(event.bubbles === true, 'change event must be bubbles');
+    Tester.assert(e.checked === true, 'e.checked must be true');
+    Tester.feedback(true);
+  });
+  e.element.dispatchEvent(new MouseEvent('click'));
+
+});
+</script>

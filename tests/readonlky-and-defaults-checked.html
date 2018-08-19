@@ -1,0 +1,18 @@
+<meta charset="utf-8" />
+<script src="/tester.js"></script>
+<script src="jinkela.js"></script>
+<script src="/Checkbox.js"></script>
+<script>
+addEventListener('load', () => {
+
+  let d = new Checkbox({ text: 'hehe', readonly: true, checked: true }).to(document.body);
+  Tester.assert(d.checked === true, 'd.checked must be true');
+  d.element.dispatchEvent(new MouseEvent('click'));
+  Tester.assert(d.checked === true, 'd.checked must be true yet');
+  d.readonly = false;
+  d.element.dispatchEvent(new MouseEvent('click'));
+  Tester.assert(d.checked === false, 'd.checked must be false');
+  Tester.feedback(true);
+
+});
+</script>
